@@ -56,25 +56,33 @@ public class RecipeController {
     ) {
         Receita receita;
 
-        if (tipoReceita.equals("DOCE")) {
-            receita = new ReceitaDoce(nome, modoPreparo, categoria);
+        if (id != null) {
+            receita = receitaService.buscarPorId(id);
+
+            receita.setNome(nome);
+            receita.setModoPreparo(modoPreparo);
+            receita.setCategoria(categoria);
+
+            receita.getIngredientes().clear();
+
         } else {
-            receita = new ReceitaSalgada(nome, modoPreparo, categoria);
+            if (tipoReceita.equals("DOCE")) {
+                receita = new ReceitaDoce(nome, modoPreparo, categoria);
+            } else {
+                receita = new ReceitaSalgada(nome, modoPreparo, categoria);
+            }
         }
 
         if (ingredientesTexto != null && !ingredientesTexto.isEmpty()) {
             Arrays.stream(ingredientesTexto.split(","))
-                  .map(String::trim)
-                  .forEach(nomeIng -> 
-                      receita.getIngredientes().add(new Ingrediente(nomeIng, "a gosto"))
-                  );
+                    .map(String::trim)
+                    .filter(nomeIng -> !nomeIng.isEmpty()) // Proteção contra strings vazias
+                    .forEach(nomeIng ->
+                            receita.getIngredientes().add(new Ingrediente(nomeIng, "a gosto"))
+                    );
         }
 
-        if (id != null) {
-            receitaService.atualizar(id, receita);
-        } else {
-            receitaService.salvar(receita);
-        }
+        receitaService.salvar(receita);
 
         return "redirect:/recipes";
     }
