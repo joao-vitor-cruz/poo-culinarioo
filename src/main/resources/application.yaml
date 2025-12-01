@@ -13,12 +13,11 @@ spring:
 
   sql:
     init:
-      mode: always
-      schema-locations: classpath:schema-culinario.sql
+      mode: never
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
+    jpa:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: create
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
