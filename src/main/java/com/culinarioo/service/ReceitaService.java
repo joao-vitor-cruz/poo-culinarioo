@@ -12,7 +12,7 @@ import java.util.UUID;
 public class ReceitaService {
 
     @Autowired
-    private ReceitaRepository receitaRepository; // Agora usamos o Repository, não o DAO
+    private ReceitaRepository receitaRepository;
 
     public List<Receita> listarTodas() {
         return receitaRepository.findAll();

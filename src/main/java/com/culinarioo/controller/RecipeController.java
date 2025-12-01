@@ -66,7 +66,7 @@ public class RecipeController {
             receita.getIngredientes().clear();
 
         } else {
-            if (tipoReceita.equals("DOCE")) {
+            if ("DOCE".equals(tipoReceita)) {
                 receita = new ReceitaDoce(nome, modoPreparo, categoria);
             } else {
                 receita = new ReceitaSalgada(nome, modoPreparo, categoria);

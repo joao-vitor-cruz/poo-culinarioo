@@ -15,7 +15,7 @@ public abstract class Receita {
 
     private String nome;
 
-    // Configura a relação com ingredientes (Salva junto e deleta junto)
+    @JoinColumn(name = "receita_id")
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingrediente> ingredientes = new ArrayList<>();
 
