@@ -1,23 +1,28 @@
 spring:
+  application:
+    name: CulinariO
+
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
-    initialization-mode: always
 
     hikari:
       maximum-pool-size: 2
       minimum-idle: 1
       connection-timeout: 30000
 
+  # Bloco SQL (Alinhado à esquerda)
   sql:
     init:
       mode: never
 
-    jpa:
+  # Bloco JPA (Agora alinhado corretamente com o sql e datasource!)
+  jpa:
+    open-in-view: true # Mantém a conexão aberta pro HTML funcionar
+    hibernate:
+      ddl-auto: create # ATENÇÃO: Vai apagar tudo na próxima reinicialização
+    properties:
       hibernate:
-        ddl-auto: create
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
