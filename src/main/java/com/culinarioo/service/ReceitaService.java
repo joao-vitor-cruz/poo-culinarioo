@@ -1,7 +1,7 @@
 package com.culinarioo.service;
 
-import com.culinarioo.dao.ReceitaDAO;
 import com.culinarioo.model.Receita;
+import com.culinarioo.repository.ReceitaRepository; // Importe o novo repositório
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,26 +12,22 @@ import java.util.UUID;
 public class ReceitaService {
 
     @Autowired
-    private ReceitaDAO receitaDAO;
+    private ReceitaRepository receitaRepository; // Agora usamos o Repository, não o DAO
 
     public List<Receita> listarTodas() {
-        return receitaDAO.listarTodas();
+        return receitaRepository.findAll();
     }
 
     public void salvar(Receita receita) {
-        receitaDAO.salvar(receita);
+        receitaRepository.save(receita);
+    }
+
+    public Receita buscarPorId(UUID id) {
+        // O findById retorna um Optional, por isso usamos o .orElse(null) se não achar
+        return receitaRepository.findById(id).orElse(null);
     }
 
     public void excluir(UUID id) {
-        receitaDAO.excluir(id);
-    }
-
-
-    public Receita buscarPorId(UUID id) {
-        return receitaDAO.buscarPorId(id);
-    }
-
-    public void atualizar(UUID id, Receita receita) {
-        receitaDAO.atualizar(id, receita);
+        receitaRepository.deleteById(id);
     }
 }
