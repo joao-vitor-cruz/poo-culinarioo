@@ -13,16 +13,14 @@ spring:
       minimum-idle: 1
       connection-timeout: 30000
 
-  # Bloco SQL (Alinhado à esquerda)
   sql:
     init:
       mode: never
 
-  # Bloco JPA (Agora alinhado corretamente com o sql e datasource!)
   jpa:
-    open-in-view: true # Mantém a conexão aberta pro HTML funcionar
+    open-in-view: true
     hibernate:
-      ddl-auto: create # ATENÇÃO: Vai apagar tudo na próxima reinicialização
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
